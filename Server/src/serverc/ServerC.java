@@ -48,15 +48,12 @@ public class ServerC extends PApplet {
 	  	    		String name = Amsg.split(";")[0].toString();
 	  	    		String Bmsg = name + " says: " + Amsg.substring(name.length() + 1);
 		  	    	String msg = Bmsg;
-		  	        //text(msg, 15, textLine);
 		  	        allData = allData + "\n" + msg;
 		  		    try {
 		  				myServer.write(allData.getBytes("UTF-8"));
 		  			} catch (UnsupportedEncodingException e) {
-		  				// TODO Auto-generated catch block
 		  				e.printStackTrace();
 		  			}
-		  	        //textLine = textLine + 35;
 	  	    	} catch (Exception exception) {
 	  	    		exception.printStackTrace();
 	  	    	}
@@ -67,7 +64,6 @@ public class ServerC extends PApplet {
 //	    try {
 //			myServer.write(allData.getBytes("UTF-8"));
 //		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 	    text(allData, 15, 95);
