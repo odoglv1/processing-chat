@@ -87,7 +87,6 @@ public class ClientC extends PApplet {
 						  try {
 							client.write(new String("[BROADCAST] " + myText.substring(5, myText.length())).getBytes("UTF-8"));
 						} catch (UnsupportedEncodingException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					  }
@@ -96,7 +95,6 @@ public class ClientC extends PApplet {
 							client.write(new String(name + ";" + myText).getBytes("UTF-8"));
 							myText = ""; //Nullify string myText.
 						} catch (UnsupportedEncodingException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} //Write name and myText to the connected server through the client object.
 					  }
