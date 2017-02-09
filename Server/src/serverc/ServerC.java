@@ -14,6 +14,7 @@ public class ServerC extends PApplet {
 	public int bgColor = 0;
 	public int direction = 1;
 	public int textLine = 95;
+	public int refreshCount = 0;
 
 	public Server myServer;
 	
@@ -60,12 +61,16 @@ public class ServerC extends PApplet {
 	  	      }
 	  	    }
 	    }
-	    //TODO cause this section of code below to run, but only every 30th time or so. Use an int counter for this.
-//	    try {
-//			myServer.write(allData.getBytes("UTF-8"));
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
+	    if (refreshCount >= 30) {
+	    	try {
+			myServer.write(allData.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		refreshCount = 0;
+	    } else if (refreshCount < 30) {
+	    	refreshcount += 1;
+	    }
 	    text(allData, 15, 95);
 	  }
 	  else 
