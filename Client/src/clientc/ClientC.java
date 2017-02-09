@@ -28,6 +28,7 @@ public class ClientC extends PApplet {
 	public boolean ipEstablished = false; //Whether or not the user is connected to a server.
 	public boolean nameEstablished = false; //Whether or not the user has specified a screen name.
 	public String name;
+	public int sendCount = 0;
 	//public int mtcount = 0; Explained below.
 	
 	public String host; //The (local) host IP the user will connect to. Currently null, as the user must specify an IP to connect to at first.
@@ -35,6 +36,7 @@ public class ClientC extends PApplet {
 	public void setup() { //Run on the program's start.
 		ipEstablished = false; //Re-establish variables, as a failsafe.
 		nameEstablished = false; //"
+		sendCount = 0; //"
 		name = "";
 		//mtcount = 0; I meant for this to do something, but I'm not entirely sure what.
 	}
@@ -44,11 +46,19 @@ public class ClientC extends PApplet {
 		
 		fill(255);
 		
+		if (sendCount <= 10) {
+			canSend = true;
+			sendCount = 0;
+		}
+		else {
+			sendCount += 1;
+		}
+		
 		if (ipEstablished && nameEstablished) { //If connected to a server,
 			if (client.available() > 0) { //If new data has been received from the server,
 				try {
 					receivedText = new String(client.readBytes(), "UTF-8"); //Set receivedText to received data (equal to received bytes encoded in UTF-8).
-					canSend = true; //Enable message sending, if it is disabled.
+					//canSend = true; //Enable message sending, if it is disabled.
 				} catch (UnsupportedEncodingException exception) {
 					exception.printStackTrace();
 				}
@@ -99,6 +109,7 @@ public class ClientC extends PApplet {
 						} //Write name and myText to the connected server through the client object.
 					  }
 					  canSend = false; //Prevent spam by disallowing sending.
+					  sendcount = 0;
 				  }
 		  } else if (!ipEstablished && !nameEstablished) { //If not connected (i.e. the user is clarifying the IP they want to connect to),
 			  //The following are explained above.
