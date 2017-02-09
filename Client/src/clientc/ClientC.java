@@ -11,7 +11,6 @@ import processing.net.Client;
 public class ClientC extends PApplet {
 	
 	/**
-	 * IMPORTANT: All IPs provided should be local, not public.
 	 * It took me so fricking long to comment all of this.
 	 * @author Owen Thompson (Text input code by Amnon (amnonp5.wordpress.com))
 	 * @version 30 Oct. 2016
@@ -46,7 +45,7 @@ public class ClientC extends PApplet {
 		
 		fill(255);
 		
-		if (sendCount <= 10) {
+		if (sendCount >= 10) {
 			canSend = true;
 			sendCount = 0;
 		}
