@@ -108,7 +108,7 @@ public class ClientC extends PApplet {
 						} //Write name and myText to the connected server through the client object.
 					  }
 					  canSend = false; //Prevent spam by disallowing sending.
-					  sendcount = 0;
+					  sendCount = 0;
 				  }
 		  } else if (!ipEstablished && !nameEstablished) { //If not connected (i.e. the user is clarifying the IP they want to connect to),
 			  //The following are explained above.

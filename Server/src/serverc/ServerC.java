@@ -69,7 +69,7 @@ public class ServerC extends PApplet {
 		}
 		refreshCount = 0;
 	    } else if (refreshCount < 30) {
-	    	refreshcount += 1;
+	    	refreshCount += 1;
 	    }
 	    text(allData, 15, 95);
 	  }
