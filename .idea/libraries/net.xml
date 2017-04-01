@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="net">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Server/lib/base/net/net.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
