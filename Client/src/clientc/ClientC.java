@@ -9,7 +9,7 @@ public class ClientC extends PApplet {
 	/**
 	 * It took me so fricking long to comment all of this.
 	 * @author Owen Thompson (Text input code by Amnon (amnonp5.wordpress.com))
-	 * @version 30 Oct. 2016
+	 * @version 0.4-Alpha
 	 */
 	
 	//TODO: Fix the GUI.

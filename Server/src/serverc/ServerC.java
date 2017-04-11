@@ -11,7 +11,10 @@ import processing.net.Server;
 
 public class ServerC extends PApplet {
 	
-	//TODO: Comment this code.
+	/**
+	 * @author Owen Thompson
+	 * @version 0.4-Alpha
+	 */
 	
 	public int port = 10002;
 	public boolean myServerRunning = true;
