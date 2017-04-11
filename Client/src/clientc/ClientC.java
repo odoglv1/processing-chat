@@ -1,10 +1,6 @@
 package clientc;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-
 import processing.core.PApplet;
 import processing.net.Client;
 
@@ -85,11 +81,16 @@ public class ClientC extends PApplet {
 				    }
 				  } else if (keyCode == DELETE) { //Delete functionality.
 				    myText = ""; //Nullify string.
-				  } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && keyCode != 20 && keyCode != ENTER) { //Text input functionality, does not input Shift, Ctrl, Alt, Caps Lock (keyCode 20), or Enter.
+				  } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT && keyCode != 20 && keyCode != ENTER && keyCode != WINDOWS) { //Text input functionality, does not input Shift, Ctrl, Alt, Caps Lock (keyCode 20), Enter, or the Windows key.
 				    myText = myText + key; //Add key to string.
 				  }
 				  if (keyCode == ENTER && canSend) { //If the user sends a message, and they can send it,
 					  if (myText.equals("/exit") || myText.equals("/e")) {
+						  try {
+							client.write(new String(name + ";" + "[LEAVE_REQUEST/492/USER-INITIATED]").getBytes("UTF-8"));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 						  System.exit(0);
 					  }
 					  else if (myText.startsWith("/msg ")) {
@@ -145,6 +146,12 @@ public class ClientC extends PApplet {
 					  ipEstablished = true; //Setting this variable once more.
 					  nameEstablished = true; //A name has now been established.
 					  client = new Client(ClientC.this, host, 10002); //Establish the clientside through Processing.
+					  try {
+						client.write(new String(name + ";" + "[JOIN_REQUEST/491/USER-INITIATED]").getBytes("UTF-8"));
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+						System.out.println("Joining the server has failed.");
+					}
 				  }
 		  }
 	}
