@@ -5,19 +5,19 @@ import processing.core.PApplet;
 import processing.net.Client;
 
 public class ClientC extends PApplet {
-	
+
 	/**
 	 * It took me so fricking long to comment all of this.
 	 * @author Owen Thompson (Text input code by Amnon (amnonp5.wordpress.com))
 	 * @version 0.4-Alpha
 	 */
-	
+
 	//TODO: Fix the GUI.
-	
+
 	public String myText = ""; //Text input by the user.
-	
+
 	public Client client; //The Processing Clientside Object.
-	
+
 	public String receivedText; //Text received from the server.
 	public boolean canSend = true; //Whether or not the user can send a message.
 	public boolean ipEstablished = false; //Whether or not the user is connected to a server.
@@ -25,7 +25,7 @@ public class ClientC extends PApplet {
 	public String name;
 	public int sendCount = 0;
 	//public int mtcount = 0; Explained below.
-	
+
 	public String host; //The (local) host IP the user will connect to. Currently null, as the user must specify an IP to connect to at first.
 
 	public void setup() { //Run on the program's start.
@@ -38,9 +38,9 @@ public class ClientC extends PApplet {
 
 	public void draw() { //Run every frame.
 		background(0);
-		
+
 		fill(255);
-		
+
 		if (sendCount >= 10) {
 			canSend = true;
 			sendCount = 0;
@@ -48,7 +48,7 @@ public class ClientC extends PApplet {
 		else {
 			sendCount += 1;
 		}
-		
+
 		if (ipEstablished && nameEstablished) { //If connected to a server,
 			if (client.available() > 0) { //If new data has been received from the server,
 				try {
@@ -59,9 +59,9 @@ public class ClientC extends PApplet {
 				}
 			}
 		}
-		
+
 		text(myText, 0, height - 15); //Render user-input text at 0, window height - 15.
-		
+
 		if (!ipEstablished && !nameEstablished) { //Display a message if not connected to a server.
 			text("Enter the IP you wish to connect to:", 0, height - 30);
 		}
@@ -69,10 +69,11 @@ public class ClientC extends PApplet {
 			text("What is your name?", 0, height - 30);
 		}
 		if (receivedText != null && ipEstablished && nameEstablished) { //If text has been received and this client is connected to a server,
+			receivedText = "";
 			text(receivedText, 0, 15); //Render all received text at 0, 15.
 		}
 	}
-	
+
 	public void keyPressed() { //Handles all key presses.
 		  if (ipEstablished && nameEstablished) { //If connected,
 			  if (keyCode == BACKSPACE) { //Backspace functionality.
@@ -145,7 +146,12 @@ public class ClientC extends PApplet {
 					  myText = ""; //Nullify myText.
 					  ipEstablished = true; //Setting this variable once more.
 					  nameEstablished = true; //A name has now been established.
+					  try {
 					  client = new Client(ClientC.this, host, 10002); //Establish the clientside through Processing.
+					  } catch (Exception exception) {
+						  exception.printStackTrace();
+						  System.out.println("Error. You may have used an invalid address.");
+					  }
 					  try {
 						client.write(new String(name + ";" + "[JOIN_REQUEST/491/USER-INITIATED]").getBytes("UTF-8"));
 					} catch (UnsupportedEncodingException e) {
@@ -155,11 +161,11 @@ public class ClientC extends PApplet {
 				  }
 		  }
 	}
-	
+
 	public void settings() {
 		size(700, 500); //Establish window size as 700x500.
 	}
-	
+
 	public static void main(String _args[]) {
 		PApplet.main(new String[] { clientc.ClientC.class.getName() });
 	}

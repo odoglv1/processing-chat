@@ -10,12 +10,12 @@ import processing.net.Client;
 import processing.net.Server;
 
 public class ServerC extends PApplet {
-	
+
 	/**
 	 * @author Owen Thompson
 	 * @version 0.4-Alpha
 	 */
-	
+
 	public int port = 10002;
 	public boolean myServerRunning = true;
 	public int bgColor = 0;
@@ -24,18 +24,18 @@ public class ServerC extends PApplet {
 	public int refreshCount = 0;
 
 	public Server myServer;
-	
+
 	public String allData = "[DATA START]";
-	
+
 	public String permanentMsg;
-	
+
 	public String ipf;
 
 	public void setup()
 	{
 	  myServer = new Server(ServerC.this, port); // Starts a myServer on port 10002
 	  background(0);
-	  
+
 	  try {
 	  URL whatismyip = new URL("http://checkip.amazonaws.com");
       BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -45,9 +45,9 @@ public class ServerC extends PApplet {
 		  System.out.println(exception.getMessage());
 	  }
 	}
-	
+
 	public void settings() {
-		size(400, 400);
+		size(500, 500);
 	}
 
 	public void draw()
@@ -69,12 +69,12 @@ public class ServerC extends PApplet {
 	  	    		String name = null;
 	  	    		String Bmsg = null;
 	  	    		String msg = null;
-	  	    		
+
 	  	    		Amsg = new String(thisClient.readBytes(), "UTF-8");
 	  	    		name = Amsg.split(";")[0].toString();
 	  	    		Bmsg = name + " says: " + Amsg.substring(name.length() + 1);
 		  	    	msg = Bmsg;
-		  	    	
+
 		  	    	if (Amsg.split(";")[1].equals("[LEAVE_REQUEST/492/USER-INITIATED]")) {
 		  	    		allData = allData + "\n" + name + " has left the server.";
 		  	    	} else if (Amsg.split(";")[1].equals("[JOIN_REQUEST/491/USER-INITIATED]")) {
@@ -82,7 +82,7 @@ public class ServerC extends PApplet {
 		  	    	} else {
 		  	    		allData = allData + "\n" + msg;
 		  	    	}
-		  	        
+
 		  		    try {
 		  				myServer.write(allData.getBytes("UTF-8"));
 		  			} catch (UnsupportedEncodingException e) {
@@ -106,20 +106,20 @@ public class ServerC extends PApplet {
 	    }
 	    text(allData, 15, 135);
 	  }
-	  else 
+	  else
 	  {
 		background(0);
 	    text("[SERVER STOPPED]", 15, 45);
 	  }
 	}
-	
+
 	public void keyPressed() {
 		if (key == 's') {
 			myServer.stop();
 			myServerRunning = false;
 		}
 	}
-	
+
 	public static void main(String _args[]) {
 		PApplet.main(new String[] { serverc.ServerC.class.getName() });
 	}
